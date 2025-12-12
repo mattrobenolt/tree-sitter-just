@@ -257,7 +257,12 @@ module.exports = grammar({
     recipe_header: ($) =>
       seq(
         optional("@"),
-        field("name", choice($.identifier, alias("import", $.identifier))),
+        field("name", choice(
+          $.identifier,
+          alias("import", $.identifier),
+          alias("export", $.identifier),
+          alias("alias", $.identifier),
+        )),
         optional($.parameters),
         ":",
         optional($.dependencies),

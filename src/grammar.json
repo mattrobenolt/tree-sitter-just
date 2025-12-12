@@ -1124,6 +1124,24 @@
                 },
                 "named": true,
                 "value": "identifier"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
+                  "value": "export"
+                },
+                "named": true,
+                "value": "identifier"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
+                  "value": "alias"
+                },
+                "named": true,
+                "value": "identifier"
               }
             ]
           }
