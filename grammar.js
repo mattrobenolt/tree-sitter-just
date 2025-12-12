@@ -66,6 +66,7 @@ module.exports = grammar({
   ],
   word: ($) => $.identifier,
 
+
   rules: {
     // justfile      : item* EOF
     source_file: ($) =>
@@ -80,13 +81,13 @@ module.exports = grammar({
     //               | setting
     _item: ($) =>
       choice(
-        $.recipe,
         $.alias,
         $.assignment,
         $.export,
         $.import,
         $.module,
         $.setting,
+        $.recipe,
       ),
 
     // alias         : 'alias' NAME ':=' NAME
@@ -256,7 +257,7 @@ module.exports = grammar({
     recipe_header: ($) =>
       seq(
         optional("@"),
-        field("name", $.identifier),
+        field("name", choice($.identifier, alias("import", $.identifier))),
         optional($.parameters),
         ":",
         optional($.dependencies),
