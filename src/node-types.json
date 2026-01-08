@@ -70,9 +70,15 @@
         "required": false,
         "types": [
           {
-            "type": ",",
-            "named": false
-          },
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
           {
             "type": "string",
             "named": true

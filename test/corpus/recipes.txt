@@ -759,3 +759,356 @@ alias:
     (recipe_body
       (recipe_line
         (text)))))
+
+================================================================================
+arg attribute with pattern
+================================================================================
+
+[arg('n', pattern='\\d+')]
+double n:
+  echo $(({{n}} * 2))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))
+        (text)))))
+
+================================================================================
+arg attribute with multiple parameters
+================================================================================
+
+[arg("name", pattern="[a-z]+", help="A name parameter")]
+greet name:
+  echo "Hello {{name}}"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))
+        (text)))))
+
+================================================================================
+multiple arg attributes
+================================================================================
+
+[arg("x", pattern="\\d+")]
+[arg("y", pattern="\\d+")]
+add x y:
+  echo $(({{x}} + {{y}}))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string
+        (escape_sequence)))
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string
+        (escape_sequence)))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))
+        (text)))))
+
+================================================================================
+arg attribute with trailing comma
+================================================================================
+
+[arg("value", pattern="[0-9]+",)]
+test value:
+  echo {{value}}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))))))
+
+================================================================================
+arg attribute with long option
+================================================================================
+
+[arg("output", long="output")]
+build output:
+  echo "Building to {{output}}"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))
+        (text)))))
+
+================================================================================
+arg attribute with short option
+================================================================================
+
+[arg("verbose", short="v")]
+run verbose:
+  echo "Verbose: {{verbose}}"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))
+        (text)))))
+
+================================================================================
+arg attribute with value (flag)
+================================================================================
+
+[arg("force", long="force", value="true")]
+deploy force:
+  echo "Force: {{force}}"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))
+        (text)))))
+
+================================================================================
+arg attribute with help only
+================================================================================
+
+[arg("target", help="The build target")]
+build target:
+  make {{target}}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))))))
+
+================================================================================
+arg attribute combining multiple parameters
+================================================================================
+
+[arg("port", short="p", long="port", help="Server port", pattern="[0-9]+")]
+serve port:
+  python -m http.server {{port}}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string)
+      (identifier)
+      (string)
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier))))))))
+
+================================================================================
+multiple recipes with different arg attributes
+================================================================================
+
+[arg("file", long="file", help="Input file")]
+process file:
+  cat {{file}}
+
+[arg("debug", short="d", value="true")]
+test debug:
+  cargo test
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)
+        (interpolation
+          (expression
+            (value
+              (identifier)))))))
+  (recipe
+    (attribute
+      (identifier)
+      (string)
+      (identifier)
+      (string)
+      (identifier)
+      (string))
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)))))

@@ -135,6 +135,7 @@
 (attribute
   (identifier) @attribute
   (#any-of? @attribute
+    "arg"
     "confirm"
     "doc"
     "extension"
