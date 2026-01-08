@@ -82,7 +82,7 @@
 (recipe_body ;                                                                          ; SKIP-HELIX
   (shebang ;                                                                            ; SKIP-HELIX
     (language) @injection.language)                                                     ; SKIP-HELIX
-  (#not-any-of? @injection.language "python3" "nodejs" "node" "uv")                     ; SKIP-HELIX
+  (#not-any-of? @injection.language "python3" "uv" "nodejs" "node" "bun" "ts" "tsx" "deno" "sh" "zsh" "fish" "pwsh" "pwsh.exe" "powershell" "powershell.exe") ; SKIP-HELIX
   (#set! injection.include-children)) @injection.content                                ; SKIP-HELIX
                                                                                         ; SKIP-HELIX
 ; Transform some known executables                                                      ; SKIP-HELIX
@@ -101,6 +101,38 @@
     (language) @_lang)                                                                  ; SKIP-HELIX
   (#any-of? @_lang "node" "nodejs")                                                     ; SKIP-HELIX
   (#set! injection.language "javascript")                                               ; SKIP-HELIX
+  (#set! injection.include-children)) @injection.content                                ; SKIP-HELIX
+                                                                                        ; SKIP-HELIX
+; bun -> javascript                                                                     ; SKIP-HELIX
+(recipe_body                                                                            ; SKIP-HELIX
+  (shebang                                                                              ; SKIP-HELIX
+    (language) @_lang)                                                                  ; SKIP-HELIX
+  (#eq? @_lang "bun")                                                                   ; SKIP-HELIX
+  (#set! injection.language "javascript")                                               ; SKIP-HELIX
+  (#set! injection.include-children)) @injection.content                                ; SKIP-HELIX
+                                                                                        ; SKIP-HELIX
+; ts/tsx/deno -> typescript                                                             ; SKIP-HELIX
+(recipe_body                                                                            ; SKIP-HELIX
+  (shebang                                                                              ; SKIP-HELIX
+    (language) @_lang)                                                                  ; SKIP-HELIX
+  (#any-of? @_lang "ts" "tsx" "deno")                                                   ; SKIP-HELIX
+  (#set! injection.language "typescript")                                               ; SKIP-HELIX
+  (#set! injection.include-children)) @injection.content                                ; SKIP-HELIX
+                                                                                        ; SKIP-HELIX
+; sh/zsh/fish -> bash                                                                   ; SKIP-HELIX
+(recipe_body                                                                            ; SKIP-HELIX
+  (shebang                                                                              ; SKIP-HELIX
+    (language) @_lang)                                                                  ; SKIP-HELIX
+  (#any-of? @_lang "sh" "zsh" "fish")                                                   ; SKIP-HELIX
+  (#set! injection.language "bash")                                                     ; SKIP-HELIX
+  (#set! injection.include-children)) @injection.content                                ; SKIP-HELIX
+                                                                                        ; SKIP-HELIX
+; pwsh/powershell (with or without .exe) -> powershell                                  ; SKIP-HELIX
+(recipe_body                                                                            ; SKIP-HELIX
+  (shebang                                                                              ; SKIP-HELIX
+    (language) @_lang)                                                                  ; SKIP-HELIX
+  (#any-of? @_lang "pwsh" "pwsh.exe" "powershell" "powershell.exe")                    ; SKIP-HELIX
+  (#set! injection.language "powershell")                                               ; SKIP-HELIX
   (#set! injection.include-children)) @injection.content                                ; SKIP-HELIX
 
 ; ================ Recipe language specified - Helix only ================              ; SKIP-NVIM SKIP-NVIM-OLD SKIP-LAPCE SKIP-ZED
