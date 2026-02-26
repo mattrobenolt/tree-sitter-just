@@ -99,9 +99,10 @@ module.exports = grammar({
         ":=",
         field("right", $.identifier),
       ),
-    // assignment    : NAME ':=' expression _eol
+    // assignment    : attribute* NAME ':=' expression _eol
     assignment: ($) =>
       seq(
+        repeat($.attribute),
         field("left", $.identifier),
         ":=",
         field("right", $.expression),
@@ -114,9 +115,10 @@ module.exports = grammar({
     // import        : 'import' '?'? string?
     import: ($) => seq("import", optional("?"), $.string),
 
-    // module        : 'mod' '?'? string?
+    // module        : attribute* 'mod' '?'? string?
     module: ($) =>
       seq(
+        repeat($.attribute),
         "mod",
         optional("?"),
         field("name", $.identifier),
