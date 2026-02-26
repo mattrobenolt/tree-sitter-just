@@ -109,6 +109,13 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "attribute"
+          }
+        },
+        {
           "type": "FIELD",
           "name": "left",
           "content": {
@@ -175,6 +182,13 @@
     "module": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "attribute"
+          }
+        },
         {
           "type": "STRING",
           "value": "mod"
@@ -1873,5 +1887,6 @@
     "_raw_string_indented",
     "_expression_recurse"
   ],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }
